@@ -30,8 +30,22 @@ export function ExtraCostsPanel({ extras, onChange }: ExtraCostsPanelProps) {
             type="number"
             min="0"
             step="0.1"
-            value={extras.taxPercent || ""}
-            onChange={(e) => set("taxPercent", parseFloat(e.target.value) || 0)}
+            value={extras.taxPercent ?? ""}
+            onChange={(e) => {
+              const raw = e.target.value;
+
+              // если пусто — сохраняем null
+              if (raw === "") {
+                set("taxPercent", null);
+                return;
+              }
+
+              const value = parseFloat(raw);
+
+              if (!isNaN(value)) {
+                set("taxPercent", Math.max(0, value));
+              }
+            }}
             placeholder="0"
           />
         </div>
