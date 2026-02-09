@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Colleague } from "@/types/lunch";
 import { toast } from "sonner";
+import { formatMoney } from "@/utils/utils";
 
 interface ColleagueFormProps {
   colleagues: Colleague[];
@@ -112,7 +113,7 @@ export function ColleagueForm({
               <>
                 <span className="flex-1 text-sm font-medium">{c.name}</span>
                 <span className="text-xs font-semibold text-primary">
-                  ${getTotalOwed(c.id).toFixed(2)}
+                  {formatMoney(Number(getTotalOwed(c.id).toFixed(2)))}
                 </span>
                 <Button
                   size="icon"

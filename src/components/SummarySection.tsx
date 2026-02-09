@@ -1,6 +1,7 @@
 import { Receipt } from "lucide-react";
 import { ColleagueBreakdown } from "@/types/lunch";
 import { Badge } from "@/components/ui/badge";
+import { formatMoney } from "@/utils/utils";
 
 interface SummarySectionProps {
   breakdowns: ColleagueBreakdown[];
@@ -8,13 +9,6 @@ interface SummarySectionProps {
   extraTotal: number;
   grandTotal: number;
 }
-
-const formatMoney = (value: number) =>
-  value.toLocaleString("ru-RU", {
-    style: "currency",
-    currency: "TJS",
-    minimumFractionDigits: 2,
-  });
 
 export function SummarySection({
   breakdowns,

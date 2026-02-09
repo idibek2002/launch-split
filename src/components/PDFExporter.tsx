@@ -4,6 +4,7 @@ import { Colleague, Dish, ExtraCosts, ColleagueBreakdown } from "@/types/lunch";
 import { calculateDishTotal } from "@/lib/calculations";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { formatMoney } from "@/utils/utils";
 
 interface PDFExporterProps {
   colleagues: Colleague[];
@@ -53,9 +54,9 @@ export function PDFExporter({
       head: [["Dish", "Price", "Qty", "Total", "Shared by"]],
       body: dishes.map((d) => [
         d.name,
-        `$${d.price.toFixed(2)}`,
+        `${formatMoney(Number(d.price.toFixed(2)))}`,
         d.quantity.toString(),
-        `$${calculateDishTotal(d).toFixed(2)}`,
+        `${formatMoney(Number(calculateDishTotal(d).toFixed(2)))}`,
         d.colleagueIds
           .map((id) => colleagues.find((c) => c.id === id)?.name || "?")
           .join(", "),
@@ -84,9 +85,9 @@ export function PDFExporter({
       head: [["Colleague", "Subtotal", "Extras", "Total"]],
       body: breakdowns.map((b) => [
         b.colleague.name,
-        `$${b.subtotal.toFixed(2)}`,
-        `$${b.extraCosts.toFixed(2)}`,
-        `$${b.total.toFixed(2)}`,
+        `${formatMoney(b.subtotal)}`,
+        `${formatMoney(b.extraCosts)}`,
+        `${formatMoney(b.total)}`,
       ]),
       headStyles: {
         fillColor: [60, 60, 60],
@@ -104,12 +105,12 @@ export function PDFExporter({
     doc.rect(14, summaryY - 8, 182, 30, "F");
 
     doc.setFontSize(11);
-    doc.text(`Subtotal: $${subtotal.toFixed(2)}`, 20, summaryY);
-    doc.text(`Extra costs: $${extraTotal.toFixed(2)}`, 20, summaryY + 8);
+    doc.text(`Subtotal: ${formatMoney(subtotal)}`, 20, summaryY);
+    doc.text(`Extra costs: ${formatMoney(extraTotal)}`, 20, summaryY + 8);
 
     doc.setFontSize(14);
     doc.setTextColor(230, 140, 50);
-    doc.text(`Grand Total: $${grandTotal.toFixed(2)}`, 20, summaryY + 20);
+    doc.text(`Grand Total: ${formatMoney(grandTotal)}`, 20, summaryY + 20);
 
     doc.save(`LunchSplit_${today}.pdf`);
   };
