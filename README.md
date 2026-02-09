@@ -38,7 +38,7 @@ LunchSplit — это простой и удобный веб-сервис дл�
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/idibek2002/lunchsplit.git
+git clone https://github.com/idibek2002/launch-split.git
 
 # Перейти в папку проекта
 cd lunchsplit
