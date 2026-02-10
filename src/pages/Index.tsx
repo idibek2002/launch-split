@@ -10,8 +10,7 @@ import { ColleagueForm } from "@/components/ColleagueForm";
 import { DishTable } from "@/components/DishTable";
 import { ExtraCostsPanel } from "@/components/ExtraCostsPanel";
 import { SummarySection } from "@/components/SummarySection";
-import { PDFExporter } from "@/components/PDFExporter";
-import { ExcelExporter } from "@/components/ExcelExporter";
+import { ImageExporter } from "@/components/ImageExporter";
 
 const Index = () => {
   const {
@@ -67,10 +66,17 @@ const Index = () => {
           grandTotal={grandTotal}
         />
 
-        <PDFExporter
+        {/* <PDFExporter
           colleagues={colleagues}
           dishes={dishes}
           extras={extraCosts}
+          breakdowns={breakdowns}
+          subtotal={subtotal}
+          extraTotal={extraTotal}
+          grandTotal={grandTotal}
+        /> */}
+
+        <ImageExporter
           breakdowns={breakdowns}
           subtotal={subtotal}
           extraTotal={extraTotal}

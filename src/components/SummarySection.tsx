@@ -1,5 +1,5 @@
 import { Receipt } from "lucide-react";
-import { ColleagueBreakdown } from "@/types/lunch";
+import { ColleagueBreakdown, Dish } from "@/types/lunch";
 import { Badge } from "@/components/ui/badge";
 import { formatMoney } from "@/utils/utils";
 
@@ -20,10 +20,7 @@ export function SummarySection({
 
   return (
     <div className="bg-card rounded-2xl border border-border p-5 space-y-4">
-      <div className="flex items-center gap-2 mb-1">
-        <Receipt className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-display font-semibold">Итог</h2>
-      </div>
+      <h2 className="text-lg font-display font-semibold">Итог</h2>
 
       {/* Панель итогов */}
       <div className="grid grid-cols-3 gap-3">
