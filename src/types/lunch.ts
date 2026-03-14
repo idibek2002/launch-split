@@ -33,3 +33,10 @@ export interface LunchSession {
   dishes: Dish[];
   extraCosts: ExtraCosts;
 }
+
+export interface IFinalLaunch {
+  breakdowns: ColleagueBreakdown[];
+  subtotal: number;
+  extraTotal: number;
+  grandTotal: number;
+}

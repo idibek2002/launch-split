@@ -11,6 +11,7 @@ import { DishTable } from "@/components/DishTable";
 import { ExtraCostsPanel } from "@/components/ExtraCostsPanel";
 import { SummarySection } from "@/components/SummarySection";
 import { ImageExporter } from "@/components/ImageExporter";
+import { ShareButton } from "@/components/ShareButton";
 
 const Index = () => {
   const {
@@ -22,7 +23,6 @@ const Index = () => {
     editDish,
     deleteDish,
     setExtraCosts,
-    clearAll,
   } = useLunchSession();
 
   const { colleagues, dishes, extraCosts } = session;
@@ -37,36 +37,29 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header onClearAll={clearAll} />
-
-      <main className="container mx-auto px-4 py-6 max-w-2xl space-y-5">
-        <ColleagueForm
-          colleagues={colleagues}
-          onAdd={addColleague}
-          onEdit={editColleague}
-          onDelete={deleteColleague}
-          getTotalOwed={getTotalOwed}
-        />
-
-        <DishTable
-          dishes={dishes}
-          colleagues={colleagues}
-          onAdd={addDish}
-          onEdit={editDish}
-          onDelete={deleteDish}
-        />
-
-        <ExtraCostsPanel extras={extraCosts} onChange={setExtraCosts} />
-
-        <SummarySection
-          breakdowns={breakdowns}
-          subtotal={subtotal}
-          extraTotal={extraTotal}
-          grandTotal={grandTotal}
-        />
-
-        {/* <PDFExporter
+    <>
+      <ColleagueForm
+        colleagues={colleagues}
+        onAdd={addColleague}
+        onEdit={editColleague}
+        onDelete={deleteColleague}
+        getTotalOwed={getTotalOwed}
+      />
+      <DishTable
+        dishes={dishes}
+        colleagues={colleagues}
+        onAdd={addDish}
+        onEdit={editDish}
+        onDelete={deleteDish}
+      />
+      <ExtraCostsPanel extras={extraCosts} onChange={setExtraCosts} />
+      <SummarySection
+        breakdowns={breakdowns}
+        subtotal={subtotal}
+        extraTotal={extraTotal}
+        grandTotal={grandTotal}
+      />
+      {/* <PDFExporter
           colleagues={colleagues}
           dishes={dishes}
           extras={extraCosts}
@@ -75,14 +68,20 @@ const Index = () => {
           extraTotal={extraTotal}
           grandTotal={grandTotal}
         /> */}
+      <ImageExporter
+        breakdowns={breakdowns}
+        subtotal={subtotal}
+        extraTotal={extraTotal}
+        grandTotal={grandTotal}
+      />
 
-        <ImageExporter
-          breakdowns={breakdowns}
-          subtotal={subtotal}
-          extraTotal={extraTotal}
-          grandTotal={grandTotal}
-        />
-        {/* <ExcelExporter
+      <ShareButton
+        breakdowns={breakdowns}
+        subtotal={subtotal}
+        extraTotal={extraTotal}
+        grandTotal={grandTotal}
+      />
+      {/* <ExcelExporter
           colleagues={colleagues}
           dishes={dishes}
           extras={extraCosts}
@@ -91,8 +90,7 @@ const Index = () => {
           extraTotal={extraTotal}
           grandTotal={grandTotal}
         /> */}
-      </main>
-    </div>
+    </>
   );
 };
 
