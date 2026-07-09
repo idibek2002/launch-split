@@ -9,9 +9,29 @@ export const formatMoney = (value: number) =>
     minimumFractionDigits: 2,
   });
 
+const DEVICE_ID_KEY = "lunchsplit_device_id";
+
+// Стабильный идентификатор устройства/браузера, хранится в localStorage.
+export const getDeviceId = (): string => {
+  try {
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if (!id) {
+      id =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+    return id;
+  } catch {
+    return "";
+  }
+};
+
 export const saveToDb = async (bigObject: IFinalLaunch) => {
   try {
-    const encryptedString = encryptData(bigObject);
+    const payload: IFinalLaunch = { ...bigObject, ownerId: getDeviceId() };
+    const encryptedString = encryptData(payload);
     const { data, error } = await supabase
       .from("orders")
       .insert([{ data: encryptedString }])
@@ -45,7 +65,7 @@ export const getFromDb = async (id: string): Promise<IFinalLaunch> => {
   }
 };
 
-export const deleteFromDb = async (id) => {
+export const deleteFromDb = async (id: string) => {
   const { error } = await supabase.from("orders").delete().eq("id", id);
 
   if (error) {

@@ -19,7 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Index />} />
-            <Route path=":id" element={<ShareLaunch />} />
+            <Route path="share/:id" element={<ShareLaunch />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

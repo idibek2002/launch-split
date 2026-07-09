@@ -39,4 +39,8 @@ export interface IFinalLaunch {
   subtotal: number;
   extraTotal: number;
   grandTotal: number;
+  // Идентификатор устройства создателя (UUID из localStorage).
+  // Сохраняется зашифрованным вместе с данными, чтобы владелец
+  // (с того же устройства) мог удалить расчёт.
+  ownerId?: string;
 }

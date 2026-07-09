@@ -1,6 +1,7 @@
-import { Receipt } from "lucide-react";
-import { ColleagueBreakdown, Dish } from "@/types/lunch";
+import { Wallet } from "lucide-react";
+import { ColleagueBreakdown } from "@/types/lunch";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { formatMoney } from "@/utils/utils";
 
 interface SummarySectionProps {
@@ -8,6 +9,8 @@ interface SummarySectionProps {
   subtotal: number;
   extraTotal: number;
   grandTotal: number;
+  // Если задан — у каждого человека появляется кнопка «Оплатить» (только на мобильном).
+  payUrl?: string;
 }
 
 export function SummarySection({
@@ -15,6 +18,7 @@ export function SummarySection({
   subtotal,
   extraTotal,
   grandTotal,
+  payUrl,
 }: SummarySectionProps) {
   if (breakdowns.length === 0) return null;
 
@@ -94,6 +98,16 @@ export function SummarySection({
               <Badge variant="secondary" className="text-[10px]">
                 Блюда не назначены
               </Badge>
+            )}
+
+            {/* Кнопка оплаты — только на мобильном */}
+            {payUrl && b.total > 0 && (
+              <Button asChild size="sm" className="mt-3 w-full md:hidden">
+                <a href={payUrl} target="_blank" rel="noopener noreferrer">
+                  <Wallet className="mr-1 h-3.5 w-3.5" />
+                  Оплатить {formatMoney(b.total)}
+                </a>
+              </Button>
             )}
           </div>
         ))}

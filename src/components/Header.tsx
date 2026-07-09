@@ -14,9 +14,10 @@ import {
 
 interface HeaderProps {
   onClearAll: () => void;
+  isSharedView?: boolean;
 }
 
-export function Header({ onClearAll }: HeaderProps) {
+export function Header({ onClearAll, isSharedView = false }: HeaderProps) {
   return (
     <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -34,38 +35,40 @@ export function Header({ onClearAll }: HeaderProps) {
           </div>
         </div>
 
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-destructive hover:text-destructive"
-            >
-              <Trash2 className="w-4 h-4 mr-1" />
-              Очистить всё
-            </Button>
-          </AlertDialogTrigger>
-
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Очистить все данные?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Это удалит всех коллег, блюда и расчёты. Это действие нельзя
-                отменить.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-
-            <AlertDialogFooter>
-              <AlertDialogCancel>Отмена</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={onClearAll}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+        {!isSharedView && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-destructive hover:text-destructive"
               >
-                Да, очистить всё
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+                <Trash2 className="w-4 h-4 mr-1" />
+                Очистить всё
+              </Button>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Очистить все данные?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Это удалит всех коллег, блюда и расчёты. Это действие нельзя
+                  отменить.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+
+              <AlertDialogFooter>
+                <AlertDialogCancel>Отмена</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={onClearAll}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  Да, очистить всё
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </div>
     </header>
   );
